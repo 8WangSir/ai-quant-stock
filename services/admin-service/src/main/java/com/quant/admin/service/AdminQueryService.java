@@ -28,6 +28,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -291,6 +292,9 @@ public class AdminQueryService {
                 new LambdaQueryWrapper<IndustryStrength>()
                         .eq(IndustryStrength::getTradeDate, tradeDate)
                         .orderByAsc(IndustryStrength::getRank));
+        if (list.isEmpty()) {
+            return Collections.emptyList();
+        }
 
         List<IndustryRankDTO> result = new ArrayList<>();
         for (IndustryStrength item : list) {

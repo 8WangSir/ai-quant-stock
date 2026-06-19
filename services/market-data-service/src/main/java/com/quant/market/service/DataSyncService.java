@@ -1,6 +1,7 @@
 package com.quant.market.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.quant.common.entity.IndustryDaily;
 import com.quant.common.entity.StockDaily;
 import com.quant.common.entity.StockFinance;
 import com.quant.common.entity.StockInfo;
@@ -9,6 +10,7 @@ import com.quant.market.config.QuantProperties;
 import com.quant.market.datasource.MarketDataProvider;
 import com.quant.market.datasource.baostock.BaostockClient;
 import com.quant.market.datasource.infoway.InfowayProvider;
+import com.quant.market.mapper.IndustryDailyMapper;
 import com.quant.market.mapper.StockDailyMapper;
 import com.quant.market.mapper.StockFinanceMapper;
 import com.quant.market.mapper.StockInfoMapper;
@@ -43,6 +45,7 @@ public class DataSyncService {
     private final StockDailyMapper stockDailyMapper;
     private final StockFinanceMapper stockFinanceMapper;
     private final SyncProgressMapper syncProgressMapper;
+    private final IndustryDailyMapper industryDailyMapper;
     private final JdbcTemplate jdbcTemplate;
     private final QuantProperties properties;
 
@@ -82,6 +85,82 @@ public class DataSyncService {
             }
         }
         log.info("Synced {} stocks", stocks.size());
+    }
+
+    /**
+     * 同步行业数据
+     */
+    public void syncIndustryData() {
+        if (baostockClient == null) {
+            log.warn("BaoStock 客户端未初始化，跳过行业同步");
+            return;
+        }
+        
+        List<Map<String, Object>> industryData = baostockClient.fetchIndustryData();
+        if (industryData == null || industryData.isEmpty()) {
+            log.warn("未获取到行业数据");
+            return;
+        }
+        
+        int updated = 0;
+        for (Map<String, Object> item : industryData) {
+            String code = (String) item.get("code");
+            String industry = (String) item.get("industry");
+            
+            if (code != null && industry != null && !industry.isEmpty()) {
+                int rows = jdbcTemplate.update(
+                        "UPDATE stock_info SET industry = ? WHERE code = ?",
+                        industry, code);
+                if (rows > 0) {
+                    updated++;
+                }
+            }
+        }
+        
+        log.info("【行业同步】完成: 更新 {} 只股票的行业数据", updated);
+    }
+
+    /**
+     * 同步行业每日行情数据
+     */
+    public void syncIndustryDaily(LocalDate startDate, LocalDate endDate) {
+        if (baostockClient == null) {
+            log.warn("BaoStock 客户端未初始化，跳过行业行情同步");
+            return;
+        }
+        
+        log.info("【行业行情同步】开始: {} ~ {}", startDate, endDate);
+        
+        List<Map<String, Object>> data = baostockClient.fetchIndustryDaily(startDate.toString(), endDate.toString());
+        if (data == null || data.isEmpty()) {
+            log.warn("未获取到行业行情数据");
+            return;
+        }
+        
+        List<IndustryDaily> industryDailies = data.stream()
+                .map(this::mapToIndustryDaily)
+                .filter(d -> d != null)
+                .collect(Collectors.toList());
+        
+        if (!industryDailies.isEmpty()) {
+            // 批量插入或更新
+            for (IndustryDaily daily : industryDailies) {
+                try {
+                    jdbcTemplate.update(
+                            "INSERT INTO industry_daily (industry_name, trade_date, close, change_percent, amount, capital_flow, create_time, update_time) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) " +
+                            "ON CONFLICT (industry_name, trade_date) DO UPDATE SET " +
+                            "close = EXCLUDED.close, change_percent = EXCLUDED.change_percent, " +
+                            "amount = EXCLUDED.amount, update_time = CURRENT_TIMESTAMP",
+                            daily.getIndustryName(), daily.getTradeDate(), daily.getClose(),
+                            daily.getChangePercent(), daily.getAmount(), daily.getCapitalFlow());
+                } catch (Exception e) {
+                    log.error("插入行业行情数据失败: {} - {}", daily.getIndustryName(), daily.getTradeDate(), e);
+                }
+            }
+        }
+        
+        log.info("【行业行情同步】完成: 共 {} 条记录", industryDailies.size());
     }
 
     // ==================== 日线数据 ====================
@@ -241,7 +320,7 @@ public class DataSyncService {
     // ==================== 财务数据 ====================
 
     /**
-     * 全量同步财务：使用 BaoStock 批量获取最新一期
+     * 全量同步财务：使用 BaoStock 批量获取最近一年
      */
     public void syncFinanceDataFull() {
         if (baostockClient == null) {
@@ -264,7 +343,10 @@ public class DataSyncService {
 
         log.info("【全量】财务同步: 总{}只, 已有{}只, 待同步{}只", total, existingCodes.size(), pendingCodes.size());
 
-        syncFinanceWithBaostock(pendingCodes);
+        // 同步最近一年的财务数据（4个季度）
+        int currentYear = LocalDate.now().getYear();
+        int startYear = currentYear - 1;  // 从去年开始
+        syncFinanceWithBaostock(pendingCodes, startYear, currentYear);
     }
 
     /**
@@ -283,31 +365,34 @@ public class DataSyncService {
         syncFinanceWithBaostockIncr(codes, year, quarter);
     }
 
-    private void syncFinanceWithBaostock(List<String> codes) {
+    /**
+     * 同步财务数据（支持指定年份范围）
+     */
+    private void syncFinanceWithBaostock(List<String> codes, int startYear, int endYear) {
+        if (codes.isEmpty()) {
+            log.info("【全量】财务同步: 没有待同步的股票");
+            return;
+        }
+        
         AtomicInteger successCount = new AtomicInteger(0);
         AtomicInteger failCount = new AtomicInteger(0);
 
-        // BaoStock 需要 sh./sz. 前缀
-        List<String> bsCodes = codes.stream()
-                .map(this::toBaostockCode)
-                .collect(Collectors.toList());
-
         // 分批处理，每批100只
-        for (int i = 0; i < bsCodes.size(); i += 100) {
-            List<String> batch = bsCodes.subList(i, Math.min(i + 100, bsCodes.size()));
+        for (int i = 0; i < codes.size(); i += 100) {
+            List<String> batch = codes.subList(i, Math.min(i + 100, codes.size()));
             try {
-//                List<Map<String, Object>> data = baostockClient.fetchFinanceData(batch);
-//                if (data != null && !data.isEmpty()) {
-//                    List<StockFinance> finances = data.stream()
-//                            .map(this::mapToStockFinance)
-//                            .filter(f -> f != null)
-//                            .collect(Collectors.toList());
-//                    if (!finances.isEmpty()) {
-//                        stockFinanceMapper.upsertBatch(finances);
-//                        successCount.addAndGet(finances.size());
-//                        log.info("【全量】财务写入: {}/{} (本批{}条)", successCount.get(), bsCodes.size(), finances.size());
-//                    }
-//                }
+                List<Map<String, Object>> data = baostockClient.syncFinanceDataFull(batch, startYear, endYear);
+                if (data != null && !data.isEmpty()) {
+                    List<StockFinance> finances = data.stream()
+                            .map(this::mapToStockFinance)
+                            .filter(f -> f != null)
+                            .collect(Collectors.toList());
+                    if (!finances.isEmpty()) {
+                        stockFinanceMapper.upsertBatch(finances);
+                        successCount.addAndGet(finances.size());
+                        log.info("【全量】财务写入: {}/{} (本批{}条)", successCount.get(), codes.size(), finances.size());
+                    }
+                }
             } catch (Exception e) {
                 failCount.addAndGet(batch.size());
                 log.error("【全量】财务批量失败 offset={}: {}", i, e.getMessage());
@@ -326,17 +411,18 @@ public class DataSyncService {
         for (int i = 0; i < bsCodes.size(); i += 100) {
             List<String> batch = bsCodes.subList(i, Math.min(i + 100, bsCodes.size()));
             try {
-//                List<Map<String, Object>> data = baostockClient.fetchFinanceDataIncr(batch, year, quarter);
-//                if (data != null && !data.isEmpty()) {
-//                    List<StockFinance> finances = data.stream()
-//                            .map(this::mapToStockFinance)
-//                            .filter(f -> f != null)
-//                            .collect(Collectors.toList());
-//                    if (!finances.isEmpty()) {
-//                        stockFinanceMapper.upsertBatch(finances);
-//                        successCount.addAndGet(finances.size());
-//                    }
-//                }
+                // 单季度增量同步
+                List<Map<String, Object>> data = baostockClient.syncFinanceDataFull(batch, year, year);
+                if (data != null && !data.isEmpty()) {
+                    List<StockFinance> finances = data.stream()
+                            .map(this::mapToStockFinance)
+                            .filter(f -> f != null)
+                            .collect(Collectors.toList());
+                    if (!finances.isEmpty()) {
+                        stockFinanceMapper.upsertBatch(finances);
+                        successCount.addAndGet(finances.size());
+                    }
+                }
             } catch (Exception e) {
                 log.error("【增量】财务批量失败 offset={}: {}", i, e.getMessage());
             }
@@ -425,6 +511,7 @@ public class DataSyncService {
             f.setRevenueGrowth(toDecimal(data.get("revenue_growth")));
             f.setProfitGrowth(toDecimal(data.get("profit_growth")));
             f.setDebtRatio(toDecimal(data.get("debt_ratio")));
+            f.setCashFlow(toDecimal(data.get("cash_flow")));
             return f;
         } catch (Exception e) {
             return null;
@@ -441,6 +528,24 @@ public class DataSyncService {
         }
     }
 
+    private IndustryDaily mapToIndustryDaily(Map<String, Object> data) {
+        try {
+            IndustryDaily d = new IndustryDaily();
+            d.setIndustryName((String) data.get("industry_name"));
+            String tradeDate = (String) data.get("trade_date");
+            if (tradeDate != null) {
+                d.setTradeDate(LocalDate.parse(tradeDate));
+            }
+            d.setClose(toDecimal(data.get("close")));
+            d.setChangePercent(toDecimal(data.get("change_percent")));
+            d.setAmount(toDecimal(data.get("amount")));
+            d.setCapitalFlow(toDecimal(data.get("capital_flow")));
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     private BigDecimal toDecimal(Object value) {
         if (value == null) return null;
         try {
@@ -448,6 +553,165 @@ public class DataSyncService {
         } catch (NumberFormatException e) {
             return null;
         }
+    }
+
+    // ==================== AKShare 财务数据同步 ====================
+
+    /**
+     * 使用 AKShare 同步最近4个季度财务数据
+     */
+    public void syncFinanceAkshareRecent() {
+        log.info("【AKShare财务同步】开始同步最近4个季度财务数据");
+        try {
+            ProcessBuilder pb = new ProcessBuilder(
+                    "python",
+                    "c:/Users/wangw/ai-quant-stock/python/data_sync/akshare_finance.py",
+                    "finance_recent"
+            );
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
+
+            // 读取输出
+            java.io.BufferedReader reader = new java.io.BufferedReader(
+                    new java.io.InputStreamReader(process.getInputStream(), "UTF-8"));
+            StringBuilder output = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                log.info("[AKShare] {}", line);
+                output.append(line);
+            }
+
+            int exitCode = process.waitFor();
+            if (exitCode == 0) {
+                // 解析 JSON 结果 - 找到最后一个完整的 JSON 对象
+                String jsonStr = output.toString();
+
+                // 找到最后一个 "success" 字段所在的对象
+                int lastSuccessIdx = jsonStr.lastIndexOf("\"success\"");
+                if (lastSuccessIdx > 0) {
+                    // 向前找该对象的起始位置
+                    int startIdx = jsonStr.lastIndexOf("{", lastSuccessIdx);
+                    if (startIdx >= 0) {
+                        jsonStr = jsonStr.substring(startIdx);
+                    }
+                }
+
+                com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+                Map<String, Object> result = mapper.readValue(jsonStr, Map.class);
+
+                Boolean success = (Boolean) result.get("success");
+                if (Boolean.TRUE.equals(success)) {
+                    List<Map<String, Object>> data = (List<Map<String, Object>>) result.get("data");
+                    if (data != null && !data.isEmpty()) {
+                        saveFinanceData(data);
+                        log.info("【AKShare财务同步】完成: 共 {} 条记录", data.size());
+                    }
+                } else {
+                    log.error("【AKShare财务同步】失败: {}", result.get("error"));
+                }
+            } else {
+                log.error("【AKShare财务同步】进程退出码: {}", exitCode);
+            }
+        } catch (Exception e) {
+            log.error("【AKShare财务同步】异常", e);
+        }
+    }
+
+    /**
+     * 使用 AKShare 同步指定季度财务数据
+     */
+    public void syncFinanceAkshare(String date) {
+        log.info("【AKShare财务同步】开始同步 {} 财务数据", date);
+        try {
+            ProcessBuilder pb = new ProcessBuilder(
+                    "python",
+                    "c:/Users/wangw/ai-quant-stock/python/data_sync/akshare_finance.py",
+                    "finance_batch",
+                    date
+            );
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
+
+            // 读取输出
+            java.io.BufferedReader reader = new java.io.BufferedReader(
+                    new java.io.InputStreamReader(process.getInputStream(), "UTF-8"));
+            StringBuilder output = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                log.info("[AKShare] {}", line);
+                output.append(line);
+            }
+
+            int exitCode = process.waitFor();
+            if (exitCode == 0) {
+                // 解析 JSON 结果 - 找到最后一个完整的 JSON 对象
+                String jsonStr = output.toString();
+
+                // 找到最后一个 "success" 字段所在的对象
+                int lastSuccessIdx = jsonStr.lastIndexOf("\"success\"");
+                if (lastSuccessIdx > 0) {
+                    // 向前找该对象的起始位置
+                    int startIdx = jsonStr.lastIndexOf("{", lastSuccessIdx);
+                    if (startIdx >= 0) {
+                        jsonStr = jsonStr.substring(startIdx);
+                    }
+                }
+
+                com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+                Map<String, Object> result = mapper.readValue(jsonStr, Map.class);
+
+                Boolean success = (Boolean) result.get("success");
+                if (Boolean.TRUE.equals(success)) {
+                    List<Map<String, Object>> data = (List<Map<String, Object>>) result.get("data");
+                    if (data != null && !data.isEmpty()) {
+                        saveFinanceData(data);
+                        log.info("【AKShare财务同步】完成: 共 {} 条记录", data.size());
+                    }
+                } else {
+                    log.error("【AKShare财务同步】失败: {}", result.get("error"));
+                }
+            } else {
+                log.error("【AKShare财务同步】进程退出码: {}", exitCode);
+            }
+        } catch (Exception e) {
+            log.error("【AKShare财务同步】异常", e);
+        }
+    }
+
+    /**
+     * 批量保存财务数据
+     */
+    private void saveFinanceData(List<Map<String, Object>> data) {
+        int count = 0;
+        for (Map<String, Object> item : data) {
+            try {
+                String code = (String) item.get("code");
+                String reportDateStr = (String) item.get("report_date");
+                
+                // 转换日期格式
+                LocalDate reportDate = LocalDate.parse(reportDateStr);
+
+                // UPSERT
+                jdbcTemplate.update(
+                        "INSERT INTO stock_finance (code, report_date, roe, revenue_growth, profit_growth, debt_ratio, cash_flow, create_time, update_time) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) " +
+                        "ON CONFLICT (code, report_date) DO UPDATE SET " +
+                        "roe = EXCLUDED.roe, revenue_growth = EXCLUDED.revenue_growth, " +
+                        "profit_growth = EXCLUDED.profit_growth, debt_ratio = EXCLUDED.debt_ratio, " +
+                        "cash_flow = EXCLUDED.cash_flow, update_time = CURRENT_TIMESTAMP",
+                        code, reportDate,
+                        toDecimal(item.get("roe")),
+                        toDecimal(item.get("revenue_growth")),
+                        toDecimal(item.get("profit_growth")),
+                        toDecimal(item.get("debt_ratio")),
+                        toDecimal(item.get("cash_flow"))
+                );
+                count++;
+            } catch (Exception e) {
+                log.warn("保存财务数据失败: {}", item.get("code"), e);
+            }
+        }
+        log.info("保存财务数据: {} 条", count);
     }
 
     // ==================== 行业数据（暂不实现） ====================

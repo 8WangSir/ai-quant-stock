@@ -91,6 +91,79 @@ public class BaostockClient {
         }
     }
 
+    /**
+     * 获取财务数据（支持断点续传）
+     * @param codes 股票代码列表
+     * @param startYear 起始年份
+     * @param endYear 结束年份
+     * @return 财务数据列表
+     */
+    public List<Map<String, Object>> syncFinanceDataFull(List<String> codes, int startYear, int endYear) {
+        try {
+            File tempFile = File.createTempFile("baostock_", ".json");
+            try (java.io.OutputStreamWriter writer = new java.io.OutputStreamWriter(new java.io.FileOutputStream(tempFile), java.nio.charset.StandardCharsets.UTF_8)) {
+                objectMapper.writeValue(writer, codes);
+            }
+            Map<String, Object> result = runPython("finance_full", 
+                    String.valueOf(startYear), 
+                    String.valueOf(endYear), 
+                    "@" + tempFile.getAbsolutePath());
+            tempFile.delete();
+            
+            Boolean success = (Boolean) result.get("success");
+            if (!Boolean.TRUE.equals(success)) {
+                log.error("BaoStock 获取财务数据失败: {}", result.get("error"));
+                return null;
+            }
+            return (List<Map<String, Object>>) result.get("data");
+        } catch (Exception e) {
+            log.error("BaoStock 获取财务数据异常", e);
+            return null;
+        }
+    }
+
+    /**
+     * 获取行业分类数据
+     * @return 行业数据列表，每项包含 code 和 industry
+     */
+    public List<Map<String, Object>> fetchIndustryData() {
+        try {
+            Map<String, Object> result = runPython("industry");
+            
+            Boolean success = (Boolean) result.get("success");
+            if (!Boolean.TRUE.equals(success)) {
+                log.error("BaoStock 获取行业数据失败: {}", result.get("error"));
+                return null;
+            }
+            return (List<Map<String, Object>>) result.get("data");
+        } catch (Exception e) {
+            log.error("BaoStock 获取行业数据异常", e);
+            return null;
+        }
+    }
+
+    /**
+     * 获取行业指数K线数据
+     * @param startDate 起始日期
+     * @param endDate 结束日期
+     * @return 行业每日数据列表
+     */
+    public List<Map<String, Object>> fetchIndustryDaily(String startDate, String endDate) {
+        try {
+            Map<String, Object> result = runPython("industry_daily", startDate, endDate);
+            
+            Boolean success = (Boolean) result.get("success");
+            if (!Boolean.TRUE.equals(success)) {
+                log.error("BaoStock 获取行业K线数据失败: {}", result.get("error"));
+                return null;
+            }
+            return (List<Map<String, Object>>) result.get("data");
+        } catch (Exception e) {
+            log.error("BaoStock 获取行业K线数据异常", e);
+            return null;
+        }
+    }
+
     @SuppressWarnings("unchecked")
     private Map<String, Object> runPython(String... args) {
         List<String> command = new ArrayList<>();
