@@ -1,0 +1,29 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: notify-service
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+quant:
+  notify:
+    telegram:
+      enabled: false
+      bot-token: ${TELEGRAM_BOT_TOKEN:}
+      chat-id: ${TELEGRAM_CHAT_ID:}
+    dingtalk:
+      enabled: false
+      webhook: ${DINGTALK_WEBHOOK:}
+    wecom:
+      enabled: false
+      webhook: ${WECOM_WEBHOOK:}
+
+logging:
+  file:
+    name: c:/Users/wangw/ai-quant-stock/services/notify-service/logs/notify-service.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

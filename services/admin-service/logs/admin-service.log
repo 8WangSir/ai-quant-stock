@@ -1,0 +1,120 @@
+2026-06-08 01:02:34.523 [main] INFO  com.quant.admin.AdminApplication - Starting AdminApplication using Java 21.0.11 with PID 2804 (C:\Users\wangw\ai-quant-stock\services\admin-service\target\classes started by wangw in C:\Users\wangw\ai-quant-stock)
+2026-06-08 01:02:34.535 [main] INFO  com.quant.admin.AdminApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-08 01:02:35.090 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-08 01:02:35.093 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-08 01:02:35.124 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2026-06-08 01:02:35.636 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-08 01:02:35.647 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-08 01:02:35.647 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-06-08 01:02:35.704 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-08 01:02:35.704 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1115 ms
+2026-06-08 01:02:35.953 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.quant.common.entity.StockScore".
+2026-06-08 01:02:35.953 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.quant.common.entity.StockScore ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-08 01:02:35.970 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.quant.common.entity.IndustryStrength".
+2026-06-08 01:02:35.970 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.quant.common.entity.IndustryStrength ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-08 01:02:37.347 [main] INFO  c.q.a.controller.LogStreamController - Log paths configured: {admin-service=c:\Users\wangw\ai-quant-stock\services\admin-service/logs/admin-service.log, market-data-service=c:\Users\wangw\ai-quant-stock\services\market-data-service/logs/market-data-service.log, factor-engine-service=c:\Users\wangw\ai-quant-stock\services\factor-engine-service/logs/factor-engine-service.log, strategy-service=c:\Users\wangw\ai-quant-stock\services\strategy-service/logs/strategy-service.log, notify-service=c:\Users\wangw\ai-quant-stock\services\notify-service/logs/notify-service.log}
+2026-06-08 01:02:37.390 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-06-08 01:02:39.607 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-06-08 01:02:39.619 [main] INFO  com.quant.admin.AdminApplication - Started AdminApplication in 5.555 seconds (process running for 6.624)
+2026-06-08 01:36:53.761 [main] INFO  com.quant.admin.AdminApplication - Starting AdminApplication using Java 21.0.11 with PID 23644 (C:\Users\wangw\ai-quant-stock\services\admin-service\target\classes started by wangw in C:\Users\wangw\ai-quant-stock)
+2026-06-08 01:36:53.763 [main] INFO  com.quant.admin.AdminApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-08 01:36:54.384 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-08 01:36:54.387 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-08 01:36:54.415 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 14 ms. Found 0 Redis repository interfaces.
+2026-06-08 01:36:54.920 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-08 01:36:54.932 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-08 01:36:54.932 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-06-08 01:36:54.985 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-08 01:36:54.985 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1164 ms
+2026-06-08 01:36:55.245 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.quant.common.entity.StockScore".
+2026-06-08 01:36:55.245 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.quant.common.entity.StockScore ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-08 01:36:55.258 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.quant.common.entity.IndustryStrength".
+2026-06-08 01:36:55.258 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.quant.common.entity.IndustryStrength ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-08 01:36:55.545 [main] INFO  c.q.a.controller.LogStreamController - Log paths configured: {admin-service=c:\Users\wangw\ai-quant-stock\services\admin-service/logs/admin-service.log, market-data-service=c:\Users\wangw\ai-quant-stock\services\market-data-service/logs/market-data-service.log, factor-engine-service=c:\Users\wangw\ai-quant-stock\services\factor-engine-service/logs/factor-engine-service.log, strategy-service=c:\Users\wangw\ai-quant-stock\services\strategy-service/logs/strategy-service.log, notify-service=c:\Users\wangw\ai-quant-stock\services\notify-service/logs/notify-service.log}
+2026-06-08 01:36:55.580 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-06-08 01:36:55.830 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-06-08 01:36:55.835 [main] INFO  com.quant.admin.AdminApplication - Started AdminApplication in 2.504 seconds (process running for 3.252)
+2026-06-08 22:01:50.828 [main] INFO  com.quant.admin.AdminApplication - Starting AdminApplication using Java 21.0.11 with PID 46396 (C:\Users\wangw\ai-quant-stock\services\admin-service\target\classes started by wangw in C:\Users\wangw\ai-quant-stock\services\admin-service)
+2026-06-08 22:01:50.829 [main] INFO  com.quant.admin.AdminApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-08 22:01:51.475 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-08 22:01:51.478 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-08 22:01:51.511 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 19 ms. Found 0 Redis repository interfaces.
+2026-06-08 22:01:52.174 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-08 22:01:52.189 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-08 22:01:52.189 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-06-08 22:01:52.264 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-08 22:01:52.264 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1372 ms
+2026-06-08 22:01:52.587 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.quant.common.entity.StockScore".
+2026-06-08 22:01:52.587 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.quant.common.entity.StockScore ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-08 22:01:52.604 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.quant.common.entity.IndustryStrength".
+2026-06-08 22:01:52.605 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.quant.common.entity.IndustryStrength ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-08 22:01:53.099 [main] INFO  c.q.a.controller.LogStreamController - Log paths configured: {admin-service=c:\Users\wangw\ai-quant-stock\services\admin-service/logs/admin-service.log, market-data-service=c:\Users\wangw\ai-quant-stock\services\market-data-service/logs/market-data-service.log, factor-engine-service=c:\Users\wangw\ai-quant-stock\services\factor-engine-service/logs/factor-engine-service.log, strategy-service=c:\Users\wangw\ai-quant-stock\services\strategy-service/logs/strategy-service.log, notify-service=c:\Users\wangw\ai-quant-stock\services\notify-service/logs/notify-service.log}
+2026-06-08 22:01:53.287 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-06-08 22:01:54.421 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-06-08 22:01:54.488 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-06-08 22:01:54.540 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2026-06-08 22:02:35.162 [main] INFO  com.quant.admin.AdminApplication - Starting AdminApplication using Java 21.0.11 with PID 22172 (C:\Users\wangw\ai-quant-stock\services\admin-service\target\classes started by wangw in C:\Users\wangw\ai-quant-stock\services\admin-service)
+2026-06-08 22:02:35.163 [main] INFO  com.quant.admin.AdminApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-08 22:02:35.824 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-08 22:02:35.827 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-08 22:02:35.857 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2026-06-08 22:02:36.491 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-08 22:02:36.506 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-08 22:02:36.506 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-06-08 22:02:36.592 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-08 22:02:36.593 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1381 ms
+2026-06-08 22:02:36.918 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.quant.common.entity.StockScore".
+2026-06-08 22:02:36.918 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.quant.common.entity.StockScore ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-08 22:02:36.938 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.quant.common.entity.IndustryStrength".
+2026-06-08 22:02:36.938 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.quant.common.entity.IndustryStrength ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-08 22:02:37.228 [main] INFO  c.q.a.controller.LogStreamController - Log paths configured: {admin-service=c:\Users\wangw\ai-quant-stock\services\admin-service/logs/admin-service.log, market-data-service=c:\Users\wangw\ai-quant-stock\services\market-data-service/logs/market-data-service.log, factor-engine-service=c:\Users\wangw\ai-quant-stock\services\factor-engine-service/logs/factor-engine-service.log, strategy-service=c:\Users\wangw\ai-quant-stock\services\strategy-service/logs/strategy-service.log, notify-service=c:\Users\wangw\ai-quant-stock\services\notify-service/logs/notify-service.log}
+2026-06-08 22:02:37.278 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-06-08 22:02:37.767 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-06-08 22:02:37.774 [main] INFO  com.quant.admin.AdminApplication - Started AdminApplication in 3.131 seconds (process running for 3.699)
+2026-06-08 22:38:14.172 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-08 22:38:14.191 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-08 22:38:14.270 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 78 ms
+2026-06-08 22:38:15.219 [http-nio-8080-exec-3] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-08 22:38:15.736 [http-nio-8080-exec-3] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5f4cc565
+2026-06-08 22:38:15.745 [http-nio-8080-exec-3] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-08 22:50:11.985 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-08 22:50:12.000 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-08 22:53:18.038 [main] INFO  com.quant.admin.AdminApplication - Starting AdminApplication using Java 21.0.11 with PID 9092 (C:\Users\wangw\ai-quant-stock\services\admin-service\target\classes started by wangw in C:\Users\wangw\ai-quant-stock\services\admin-service)
+2026-06-08 22:53:18.040 [main] INFO  com.quant.admin.AdminApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-08 22:53:18.736 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-08 22:53:18.740 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-08 22:53:18.774 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 19 ms. Found 0 Redis repository interfaces.
+2026-06-08 22:53:19.459 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-08 22:53:19.476 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-08 22:53:19.476 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-06-08 22:53:19.558 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-08 22:53:19.558 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1455 ms
+2026-06-08 22:53:19.909 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.quant.common.entity.StockScore".
+2026-06-08 22:53:19.909 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.quant.common.entity.StockScore ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-08 22:53:19.932 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.quant.common.entity.IndustryStrength".
+2026-06-08 22:53:19.932 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.quant.common.entity.IndustryStrength ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-08 22:53:20.226 [main] INFO  c.q.a.controller.LogStreamController - Log paths configured: {admin-service=c:\Users\wangw\ai-quant-stock\services\admin-service/logs/admin-service.log, market-data-service=c:\Users\wangw\ai-quant-stock\services\market-data-service/logs/market-data-service.log, factor-engine-service=c:\Users\wangw\ai-quant-stock\services\factor-engine-service/logs/factor-engine-service.log, strategy-service=c:\Users\wangw\ai-quant-stock\services\strategy-service/logs/strategy-service.log, notify-service=c:\Users\wangw\ai-quant-stock\services\notify-service/logs/notify-service.log}
+2026-06-08 22:53:20.280 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-06-08 22:53:20.804 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-06-08 22:53:20.812 [main] INFO  com.quant.admin.AdminApplication - Started AdminApplication in 3.276 seconds (process running for 3.791)
+2026-06-08 22:53:51.807 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-08 22:53:51.809 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-08 22:53:51.812 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2026-06-08 22:53:53.190 [http-nio-8080-exec-4] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-08 22:53:53.549 [http-nio-8080-exec-4] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5a9be73e
+2026-06-08 22:53:53.555 [http-nio-8080-exec-4] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.

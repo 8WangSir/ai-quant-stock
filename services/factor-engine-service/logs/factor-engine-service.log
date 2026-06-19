@@ -1,0 +1,145 @@
+2026-06-08 22:01:05.254 [main] INFO  c.q.factor.FactorEngineApplication - Starting FactorEngineApplication using Java 21.0.11 with PID 3084 (C:\Users\wangw\ai-quant-stock\services\factor-engine-service\target\classes started by wangw in C:\Users\wangw\ai-quant-stock\services\factor-engine-service)
+2026-06-08 22:01:05.269 [main] INFO  c.q.factor.FactorEngineApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-08 22:01:06.102 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-08 22:01:06.106 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-08 22:01:06.130 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2026-06-08 22:01:06.243 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.quant.factor]' package. Please check your configuration.
+2026-06-08 22:01:06.785 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-06-08 22:01:06.797 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-08 22:01:06.797 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-06-08 22:01:06.879 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-08 22:01:06.879 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1362 ms
+2026-06-08 22:01:07.648 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:calcIndustryStrengthJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@13dc6649[class com.quant.factor.job.FactorJobHandler#calcIndustryStrength]
+2026-06-08 22:01:07.650 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:calcIndicatorsJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@2ffb0d10[class com.quant.factor.job.FactorJobHandler#calcIndicators]
+2026-06-08 22:01:07.650 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:calcScoresJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@3982206a[class com.quant.factor.job.FactorJobHandler#calcScores]
+2026-06-08 22:01:07.759 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path ''
+2026-06-08 22:01:07.766 [main] INFO  c.q.factor.FactorEngineApplication - Started FactorEngineApplication in 3.0 seconds (process running for 3.458)
+2026-06-08 22:01:14.056 [Thread-3] INFO  com.xxl.job.core.server.EmbedServer - >>>>>>>>>>> xxl-job remoting server start success, nettype = class com.xxl.job.core.server.EmbedServer, port = 9992
+2026-06-08 22:04:29.051 [main] INFO  c.q.factor.FactorEngineApplication - Starting FactorEngineApplication using Java 21.0.11 with PID 17208 (C:\Users\wangw\ai-quant-stock\services\factor-engine-service\target\classes started by wangw in C:\Users\wangw\ai-quant-stock\services\factor-engine-service)
+2026-06-08 22:04:29.052 [main] INFO  c.q.factor.FactorEngineApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-08 22:04:29.903 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-08 22:04:29.907 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-08 22:04:29.932 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2026-06-08 22:04:30.047 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.quant.factor]' package. Please check your configuration.
+2026-06-08 22:04:30.576 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-06-08 22:04:30.593 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-08 22:04:30.593 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-06-08 22:04:30.676 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-08 22:04:30.677 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1394 ms
+2026-06-08 22:04:31.653 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:calcScoresJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@538aa83f[class com.quant.factor.job.FactorJobHandler#calcScores]
+2026-06-08 22:04:31.654 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:calcIndicatorsJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@2d47b06[class com.quant.factor.job.FactorJobHandler#calcIndicators]
+2026-06-08 22:04:31.654 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:calcIndustryStrengthJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@59371066[class com.quant.factor.job.FactorJobHandler#calcIndustryStrength]
+2026-06-08 22:04:31.939 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path ''
+2026-06-08 22:04:31.951 [main] INFO  c.q.factor.FactorEngineApplication - Started FactorEngineApplication in 3.378 seconds (process running for 3.85)
+2026-06-08 22:04:38.419 [Thread-3] INFO  com.xxl.job.core.server.EmbedServer - >>>>>>>>>>> xxl-job remoting server start success, nettype = class com.xxl.job.core.server.EmbedServer, port = 9992
+2026-06-08 22:05:00.180 [http-nio-8082-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-08 22:05:00.180 [http-nio-8082-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-08 22:05:00.182 [http-nio-8082-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-06-08 22:05:00.231 [http-nio-8082-exec-1] INFO  c.q.f.controller.FactorController - 【指标计算】开始计算所有指标: 2026-06-08
+2026-06-08 22:05:02.627 [Thread-5] ERROR c.q.f.s.FactorCalculationService - Factor calculation failed: indicators
+Traceback (most recent call last):
+  File "C:\Users\wangw\ai-quant-stock\python\factor_engine\batch_calculator.py", line 10, in <module>
+    from config import DB_URL, REDIS_URL
+ModuleNotFoundError: No module named 'config'
+2026-06-08 22:05:04.463 [Thread-5] ERROR c.q.f.s.FactorCalculationService - Factor calculation failed: industry
+Traceback (most recent call last):
+  File "C:\Users\wangw\ai-quant-stock\python\factor_engine\batch_calculator.py", line 10, in <module>
+    from config import DB_URL, REDIS_URL
+ModuleNotFoundError: No module named 'config'
+2026-06-08 22:05:06.169 [Thread-5] ERROR c.q.f.s.FactorCalculationService - Factor calculation failed: scores
+Traceback (most recent call last):
+  File "C:\Users\wangw\ai-quant-stock\python\factor_engine\batch_calculator.py", line 10, in <module>
+    from config import DB_URL, REDIS_URL
+ModuleNotFoundError: No module named 'config'
+2026-06-08 22:05:06.169 [Thread-5] INFO  c.q.f.controller.FactorController - 【指标计算】所有指标计算完成: 2026-06-08
+2026-06-08 22:05:54.564 [http-nio-8082-exec-7] INFO  c.q.f.controller.FactorController - 【指标计算】开始计算所有指标: 2026-06-08
+2026-06-08 22:05:56.611 [Thread-6] ERROR c.q.f.s.FactorCalculationService - Factor calculation failed: indicators
+Traceback (most recent call last):
+  File "C:\Users\wangw\ai-quant-stock\python\factor_engine\batch_calculator.py", line 15, in <module>
+    from indicators import calculate_indicators
+  File "C:\Users\wangw\ai-quant-stock\python\factor_engine\indicators.py", line 4, in <module>
+    import talib
+ModuleNotFoundError: No module named 'talib'
+2026-06-08 22:05:59.240 [Thread-6] ERROR c.q.f.s.FactorCalculationService - Factor calculation failed: industry
+Traceback (most recent call last):
+  File "C:\Users\wangw\ai-quant-stock\python\factor_engine\batch_calculator.py", line 15, in <module>
+    from indicators import calculate_indicators
+  File "C:\Users\wangw\ai-quant-stock\python\factor_engine\indicators.py", line 4, in <module>
+    import talib
+ModuleNotFoundError: No module named 'talib'
+2026-06-08 22:06:01.267 [Thread-6] ERROR c.q.f.s.FactorCalculationService - Factor calculation failed: scores
+Traceback (most recent call last):
+  File "C:\Users\wangw\ai-quant-stock\python\factor_engine\batch_calculator.py", line 15, in <module>
+    from indicators import calculate_indicators
+  File "C:\Users\wangw\ai-quant-stock\python\factor_engine\indicators.py", line 4, in <module>
+    import talib
+ModuleNotFoundError: No module named 'talib'
+2026-06-08 22:06:01.267 [Thread-6] INFO  c.q.f.controller.FactorController - 【指标计算】所有指标计算完成: 2026-06-08
+2026-06-08 22:09:17.085 [http-nio-8082-exec-4] INFO  c.q.f.controller.FactorController - 【指标计算】开始计算所有指标: 2026-06-08
+2026-06-08 22:10:41.675 [Thread-7] INFO  c.q.f.s.FactorCalculationService - Factor calculation completed: {"status":"ok","command":"indicators","trade_date":"2026-06-08"}
+2026-06-08 22:10:43.955 [Thread-7] INFO  c.q.f.s.FactorCalculationService - Factor calculation completed: {"status":"ok","command":"industry","trade_date":"2026-06-08"}
+2026-06-08 22:11:38.251 [Thread-7] ERROR c.q.f.s.FactorCalculationService - Factor calculation failed: scores
+Traceback (most recent call last):
+  File "C:\Users\wangw\ai-quant-stock\python\factor_engine\batch_calculator.py", line 230, in <module>
+    main()
+  File "C:\Users\wangw\ai-quant-stock\python\factor_engine\batch_calculator.py", line 225, in main
+    result = handlers.get(command, handlers["all"])()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wangw\ai-quant-stock\python\factor_engine\batch_calculator.py", line 216, in <lambda>
+    "scores": lambda: calc_scores(trade_date),
+                      ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wangw\ai-quant-stock\python\factor_engine\batch_calculator.py", line 149, in calc_scores
+    score = calculate_total_score(finance_dict, indicator_dict, capital_dict, industry_score)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wangw\ai-quant-stock\python\factor_engine\scoring.py", line 75, in calculate_total_score
+    finance = score_finance(finance_row)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wangw\ai-quant-stock\python\factor_engine\scoring.py", line 14, in score_finance
+    if finance_row.get("roe", 0) > ROE_THRESHOLD:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'NoneType' and 'float'
+2026-06-08 22:11:38.251 [Thread-7] INFO  c.q.f.controller.FactorController - 【指标计算】所有指标计算完成: 2026-06-08
+2026-06-08 22:12:11.837 [http-nio-8082-exec-3] INFO  c.q.f.controller.FactorController - 【指标计算】开始计算所有指标: 2026-06-08
+2026-06-08 22:13:05.843 [Thread-8] INFO  c.q.f.s.FactorCalculationService - Factor calculation completed: {"status":"ok","command":"indicators","trade_date":"2026-06-08"}
+2026-06-08 22:13:08.000 [Thread-8] INFO  c.q.f.s.FactorCalculationService - Factor calculation completed: {"status":"ok","command":"industry","trade_date":"2026-06-08"}
+2026-06-08 22:14:35.955 [Thread-8] INFO  c.q.f.s.FactorCalculationService - Factor calculation completed: {"status":"ok","command":"scores","trade_date":"2026-06-08"}
+2026-06-08 22:14:35.956 [Thread-8] INFO  c.q.f.controller.FactorController - 【指标计算】所有指标计算完成: 2026-06-08
+2026-06-08 22:42:48.743 [http-nio-8082-exec-9] INFO  c.q.f.controller.FactorController - 【指标计算】开始计算所有指标: 2026-06-08
+2026-06-08 22:43:44.419 [Thread-9] INFO  c.q.f.s.FactorCalculationService - Factor calculation completed: {"status":"ok","command":"indicators","trade_date":"2026-06-08"}
+2026-06-08 22:43:46.618 [Thread-9] INFO  c.q.f.s.FactorCalculationService - Factor calculation completed: {"status":"ok","command":"industry","trade_date":"2026-06-08"}
+2026-06-08 22:45:15.454 [Thread-9] INFO  c.q.f.s.FactorCalculationService - Factor calculation completed: {"status":"ok","command":"scores","trade_date":"2026-06-08"}
+2026-06-08 22:45:15.454 [Thread-9] INFO  c.q.f.controller.FactorController - 【指标计算】所有指标计算完成: 2026-06-08
+2026-06-08 22:46:52.605 [main] INFO  c.q.factor.FactorEngineApplication - Starting FactorEngineApplication using Java 21.0.11 with PID 38412 (C:\Users\wangw\ai-quant-stock\services\factor-engine-service\target\classes started by wangw in C:\Users\wangw\ai-quant-stock\services\factor-engine-service)
+2026-06-08 22:46:52.607 [main] INFO  c.q.factor.FactorEngineApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-08 22:46:53.567 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-08 22:46:53.576 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-08 22:46:53.613 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2026-06-08 22:46:53.744 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.quant.factor]' package. Please check your configuration.
+2026-06-08 22:46:54.338 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2026-06-08 22:46:54.357 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-08 22:46:54.357 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-06-08 22:46:54.449 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-08 22:46:54.449 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1559 ms
+2026-06-08 22:46:55.430 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:calcIndustryStrengthJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@213012a0[class com.quant.factor.job.FactorJobHandler#calcIndustryStrength]
+2026-06-08 22:46:55.435 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:calcScoresJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@126a9a3d[class com.quant.factor.job.FactorJobHandler#calcScores]
+2026-06-08 22:46:55.435 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:calcIndicatorsJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@7db47323[class com.quant.factor.job.FactorJobHandler#calcIndicators]
+2026-06-08 22:46:55.567 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path ''
+2026-06-08 22:46:55.575 [main] INFO  c.q.factor.FactorEngineApplication - Started FactorEngineApplication in 3.562 seconds (process running for 4.364)
+2026-06-08 22:47:02.843 [Thread-3] INFO  com.xxl.job.core.server.EmbedServer - >>>>>>>>>>> xxl-job remoting server start success, nettype = class com.xxl.job.core.server.EmbedServer, port = 9992
+2026-06-08 22:47:51.261 [http-nio-8082-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-08 22:47:51.262 [http-nio-8082-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-08 22:47:51.262 [http-nio-8082-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-06-08 22:47:51.322 [http-nio-8082-exec-2] INFO  c.q.f.controller.FactorController - 【指标计算】开始计算所有指标: 2026-06-08
+2026-06-08 22:49:05.432 [Thread-5] INFO  c.q.f.s.FactorCalculationService - Factor calculation completed: {"status":"ok","command":"indicators","trade_date":"2026-06-08"}
+2026-06-08 22:49:07.740 [Thread-5] INFO  c.q.f.s.FactorCalculationService - Factor calculation completed: {"status":"ok","command":"industry","trade_date":"2026-06-08"}
+2026-06-08 22:50:51.058 [http-nio-8082-exec-4] INFO  c.q.f.controller.FactorController - 【指标计算】开始生成推荐池: 2026-06-08
+2026-06-08 22:50:51.403 [Thread-5] INFO  c.q.f.s.FactorCalculationService - Factor calculation completed: {"status":"ok","command":"scores","trade_date":"2026-06-08"}
+2026-06-08 22:50:53.576 [Thread-6] INFO  c.q.f.s.FactorCalculationService - Factor calculation completed: {"status":"ok","command":"recommend","trade_date":"2026-06-08"}
+2026-06-08 22:50:53.815 [Thread-5] INFO  c.q.f.s.FactorCalculationService - Factor calculation completed: {"status":"ok","command":"recommend","trade_date":"2026-06-08"}
+2026-06-08 22:50:53.815 [Thread-5] INFO  c.q.f.controller.FactorController - 【指标计算】所有指标计算完成: 2026-06-08
+2026-06-08 23:00:54.051 [Thread-3] INFO  com.xxl.job.core.server.EmbedServer - >>>>>>>>>>> xxl-job remoting server stop.
+2026-06-08 23:00:54.054 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - >>>>>>>>>>> xxl-job registry-remove success, registryParam:RegistryParam{registryGroup='EXECUTOR', registryKey='factor-engine-service', registryValue='http://192.168.88.102:9992/'}, registryResult:ReturnT [code=200, msg=null, content=null]
+2026-06-08 23:00:54.054 [xxl-job, executor ExecutorRegistryThread] INFO  c.x.j.c.t.ExecutorRegistryThread - >>>>>>>>>>> xxl-job, executor registry thread destroy.
+2026-06-08 23:00:54.054 [SpringApplicationShutdownHook] INFO  com.xxl.job.core.server.EmbedServer - >>>>>>>>>>> xxl-job remoting server destroy success.
+2026-06-08 23:00:54.055 [xxl-job, executor TriggerCallbackThread] INFO  c.x.j.c.thread.TriggerCallbackThread - >>>>>>>>>>> xxl-job, executor callback thread destroy.
+2026-06-08 23:00:54.056 [Thread-2] INFO  c.x.j.c.thread.TriggerCallbackThread - >>>>>>>>>>> xxl-job, executor retry callback thread destroy.

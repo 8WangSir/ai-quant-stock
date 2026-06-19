@@ -1,0 +1,40 @@
+2026-06-06 23:08:23.805 [main] INFO  c.quant.market.MarketDataApplication - Starting MarketDataApplication using Java 21.0.10 with PID 44796 (C:\Users\wangw\ai-quant-stock\services\market-data-service\target\market-data-service-1.0.0-SNAPSHOT.jar started by wangw in C:\Users\wangw\ai-quant-stock)
+2026-06-06 23:08:23.807 [main] INFO  c.quant.market.MarketDataApplication - The following 1 profile is active: "local"
+2026-06-06 23:08:25.005 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-06 23:08:25.007 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-06 23:08:25.035 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 14 ms. Found 0 Redis repository interfaces.
+2026-06-06 23:08:26.186 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-06-06 23:08:26.203 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 23:08:26.205 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-06-06 23:08:26.313 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 23:08:26.314 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2108 ms
+2026-06-06 23:08:27.484 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.quant.common.entity.StockDaily".
+2026-06-06 23:08:27.484 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.quant.common.entity.StockDaily ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-06 23:08:30.920 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:syncCapitalFlowJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@3c89b864[class com.quant.market.job.DataSyncJobHandler#syncCapitalFlow]
+2026-06-06 23:08:30.938 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:syncIndustryJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@30133a11[class com.quant.market.job.DataSyncJobHandler#syncIndustry]
+2026-06-06 23:08:30.939 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:syncFinanceJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@2168def[class com.quant.market.job.DataSyncJobHandler#syncFinance]
+2026-06-06 23:08:30.942 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:initFullSyncJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@3639b04[class com.quant.market.job.DataSyncJobHandler#initFullSync]
+2026-06-06 23:08:30.945 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:syncStockDailyJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@5cb8580[class com.quant.market.job.DataSyncJobHandler#syncStockDaily]
+2026-06-06 23:08:31.826 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path ''
+2026-06-06 23:08:31.899 [main] INFO  c.quant.market.MarketDataApplication - Started MarketDataApplication in 8.822 seconds (process running for 9.78)
+2026-06-06 23:08:41.530 [Thread-3] INFO  com.xxl.job.core.server.EmbedServer - >>>>>>>>>>> xxl-job remoting server start success, nettype = class com.xxl.job.core.server.EmbedServer, port = 9991
+2026-06-06 23:10:18.124 [main] INFO  c.quant.market.MarketDataApplication - Starting MarketDataApplication using Java 21.0.10 with PID 40752 (C:\Users\wangw\ai-quant-stock\services\market-data-service\target\market-data-service-1.0.0-SNAPSHOT.jar started by wangw in C:\Users\wangw\ai-quant-stock)
+2026-06-06 23:10:18.127 [main] INFO  c.quant.market.MarketDataApplication - The following 1 profile is active: "local"
+2026-06-06 23:10:19.126 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-06 23:10:19.128 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-06 23:10:19.156 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2026-06-06 23:10:20.150 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-06-06 23:10:20.165 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 23:10:20.166 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-06-06 23:10:20.282 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 23:10:20.282 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1834 ms
+2026-06-06 23:10:21.402 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.quant.common.entity.StockDaily".
+2026-06-06 23:10:21.402 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.quant.common.entity.StockDaily ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-06 23:10:22.567 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:syncCapitalFlowJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@56b751b1[class com.quant.market.job.DataSyncJobHandler#syncCapitalFlow]
+2026-06-06 23:10:22.572 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:syncIndustryJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@69e36fe3[class com.quant.market.job.DataSyncJobHandler#syncIndustry]
+2026-06-06 23:10:22.572 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:initFullSyncJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@48d31d25[class com.quant.market.job.DataSyncJobHandler#initFullSync]
+2026-06-06 23:10:22.572 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:syncFinanceJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@46188a89[class com.quant.market.job.DataSyncJobHandler#syncFinance]
+2026-06-06 23:10:22.572 [main] INFO  c.x.job.core.executor.XxlJobExecutor - >>>>>>>>>>> xxl-job register jobhandler success, name:syncStockDailyJob, jobHandler:com.xxl.job.core.handler.impl.MethodJobHandler@6f65a203[class com.quant.market.job.DataSyncJobHandler#syncStockDaily]
+2026-06-06 23:10:22.749 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path ''
+2026-06-06 23:10:22.761 [main] INFO  c.quant.market.MarketDataApplication - Started MarketDataApplication in 5.286 seconds (process running for 6.186)
+2026-06-06 23:10:32.110 [Thread-3] INFO  com.xxl.job.core.server.EmbedServer - >>>>>>>>>>> xxl-job remoting server start success, nettype = class com.xxl.job.core.server.EmbedServer, port = 9991

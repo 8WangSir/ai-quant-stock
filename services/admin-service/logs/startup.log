@@ -1,0 +1,31 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-06-07T02:38:48.802+08:00  INFO 47784 --- [admin-service] [           main] com.quant.admin.AdminApplication         : Starting AdminApplication using Java 21.0.10 with PID 47784 (C:\Users\wangw\ai-quant-stock\services\admin-service\target\admin-service-1.0.0-SNAPSHOT.jar started by wangw in C:\Users\wangw\ai-quant-stock)
+2026-06-07T02:38:48.806+08:00  INFO 47784 --- [admin-service] [           main] com.quant.admin.AdminApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-06-07T02:38:49.991+08:00  INFO 47784 --- [admin-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-07T02:38:49.996+08:00  INFO 47784 --- [admin-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-07T02:38:50.045+08:00  INFO 47784 --- [admin-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23 ms. Found 0 Redis repository interfaces.
+2026-06-07T02:38:51.139+08:00  INFO 47784 --- [admin-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-06-07T02:38:51.162+08:00  INFO 47784 --- [admin-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-07T02:38:51.163+08:00  INFO 47784 --- [admin-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-06-07T02:38:51.299+08:00  INFO 47784 --- [admin-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-07T02:38:51.300+08:00  INFO 47784 --- [admin-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2355 ms
+ _ _   |_  _ _|_. ___ _ |    _ 
+| | |\/|_)(_| | |_\  |_)||_|_\ 
+     /               |         
+                        3.5.6 
+2026-06-07T02:38:52.002+08:00  WARN 47784 --- [admin-service] [           main] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "com.quant.common.entity.StockScore".
+2026-06-07T02:38:52.002+08:00  WARN 47784 --- [admin-service] [           main] c.b.m.core.injector.DefaultSqlInjector   : class com.quant.common.entity.StockScore ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-07T02:38:52.027+08:00  WARN 47784 --- [admin-service] [           main] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "com.quant.common.entity.IndustryStrength".
+2026-06-07T02:38:52.027+08:00  WARN 47784 --- [admin-service] [           main] c.b.m.core.injector.DefaultSqlInjector   : class com.quant.common.entity.IndustryStrength ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-07T02:38:52.517+08:00  INFO 47784 --- [admin-service] [           main] c.q.a.controller.LogStreamController     : Log paths configured: {admin-service=c:\Users\wangw\ai-quant-stock\services\admin-service/logs/admin-service.log, market-data-service=c:\Users\wangw\ai-quant-stock\services\market-data-service/logs/market-data-service.log, factor-engine-service=c:\Users\wangw\ai-quant-stock\services\factor-engine-service/logs/factor-engine-service.log, strategy-service=c:\Users\wangw\ai-quant-stock\services\strategy-service/logs/strategy-service.log, notify-service=c:\Users\wangw\ai-quant-stock\services\notify-service/logs/notify-service.log}
+2026-06-07T02:38:52.624+08:00  INFO 47784 --- [admin-service] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-06-07T02:38:53.311+08:00  INFO 47784 --- [admin-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-06-07T02:38:53.322+08:00  INFO 47784 --- [admin-service] [           main] com.quant.admin.AdminApplication         : Started AdminApplication in 5.346 seconds (process running for 6.622)

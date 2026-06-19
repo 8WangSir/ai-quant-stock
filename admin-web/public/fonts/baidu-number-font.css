@@ -1,0 +1,56 @@
+/* ============================================================
+   BaiduNumberPlus Font - 百度财经数字字体
+   从 https://finance.baidu.com/ 提取
+   ============================================================ */
+
+@font-face {
+  font-family: 'BaiduNumberPlus';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./BaiduNumberPlus-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'BaiduNumberPlus';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./BaiduNumberPlus-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'BaiduNumberPlus';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./BaiduNumberPlus-Bold.woff2') format('woff2');
+}
+
+/* 数字字体工具类 */
+.num-baidu {
+  font-family: 'BaiduNumberPlus', 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.num-baidu-regular {
+  font-family: 'BaiduNumberPlus', 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.num-baidu-medium {
+  font-family: 'BaiduNumberPlus', 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.num-baidu-bold {
+  font-family: 'BaiduNumberPlus', 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}

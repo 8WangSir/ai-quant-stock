@@ -1,0 +1,39 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: strategy-service
+  datasource:
+    url: jdbc:postgresql://localhost:15432/quant_stock?sslmode=disable
+    username: quant
+    password: quant123
+    driver-class-name: org.postgresql.Driver
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+
+quant:
+  python:
+    home: ../../python
+    executable: python
+
+xxl:
+  job:
+    admin:
+      addresses: http://localhost:8088/xxl-job-admin
+    executor:
+      appname: strategy-service
+      port: 9993
+    accessToken: default_token
+
+logging:
+  file:
+    name: c:/Users/wangw/ai-quant-stock/services/strategy-service/logs/strategy-service.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

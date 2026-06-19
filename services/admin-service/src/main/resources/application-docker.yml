@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: admin-service
+  datasource:
+    url: jdbc:postgresql://postgres:5432/quant_stock?sslmode=disable
+    username: quant
+    password: quant123
+    driver-class-name: org.postgresql.Driver
+  data:
+    redis:
+      host: redis
+      port: 6379
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  file:
+    name: /app/logs/admin-service.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+log:
+  base-dir: /app/logs

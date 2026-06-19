@@ -1,0 +1,291 @@
+/* ============================================================
+   index.css - 全局基础样式
+   ============================================================ */
+
+/* ===== 基础 Reset ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+/* ===== 中国股市配色 ===== */
+:root {
+  --rise: #cf1322;
+  --fall: #3f8600;
+  --primary: #1677ff;
+}
+
+/* ===== 涨跌色 ===== */
+.pct-positive {
+  color: var(--rise);
+  font-weight: 600;
+}
+
+.pct-negative {
+  color: var(--fall);
+  font-weight: 600;
+}
+
+/* ===== 百度财经数字字体 ===== */
+.num-mono,
+.num-baidu {
+  font-family: 'BaiduNumberPlus', 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.num-baidu-regular {
+  font-family: 'BaiduNumberPlus', 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.num-baidu-medium {
+  font-family: 'BaiduNumberPlus', 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.num-baidu-bold {
+  font-family: 'BaiduNumberPlus', 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* ===== Ant Design 全局覆盖 ===== */
+.ant-card {
+  border-radius: 12px !important;
+}
+
+.ant-table-wrapper .ant-table {
+  border-radius: 8px;
+}
+
+.ant-tag {
+  border-radius: 6px;
+}
+
+.ant-btn {
+  border-radius: 8px;
+}
+
+.ant-input,
+.ant-select-selector,
+.ant-picker {
+  border-radius: 8px !important;
+}
+
+/* ===== 评分条 ===== */
+.score-bar {
+  display: flex;
+  gap: 2px;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  background: #f0f0f0;
+  min-width: 120px;
+}
+
+.score-bar span {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.score-finance { background: #4A6CF7; }
+.score-trend { background: #8b5cf6; }
+.score-capital { background: #3f8600; }
+.score-industry { background: #F39C12; }
+
+/* ===== 强度条 ===== */
+.strength-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.strength-bar {
+  flex: 1;
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+  min-width: 60px;
+}
+
+.strength-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* ===== 信号原因彩色边框 ===== */
+.reason-block {
+  border-left: 3px solid #1677ff;
+  padding: 8px 12px;
+  background: #fafafa;
+  border-radius: 0 6px 6px 0;
+  font-size: 13px;
+  color: #5a607f;
+  line-height: 1.5;
+}
+
+.reason-block.reason-ma50 { border-left-color: #cf1322; }
+.reason-block.reason-macd { border-left-color: #faad14; }
+.reason-block.reason-industry { border-left-color: #1677ff; }
+.reason-block.reason-capital { border-left-color: #3f8600; }
+.reason-block.reason-drawdown { border-left-color: #8b5cf6; }
+
+/* ===== 评分颜色 ===== */
+.score-high { color: #1677ff; }
+.score-mid { color: #1a1a2e; }
+.score-low { color: #8b95a8; }
+
+/* ===== 排名徽章 ===== */
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'BaiduNumberPlus', 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.rank-badge.rank-1 {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+}
+
+.rank-badge.rank-2 {
+  background: linear-gradient(135deg, #C0C0C0, #A0A0A0);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(192, 192, 192, 0.4);
+}
+
+.rank-badge.rank-3 {
+  background: linear-gradient(135deg, #CD7F32, #A0522D);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(205, 127, 50, 0.4);
+}
+
+.rank-badge.rank-normal {
+  background: #f5f7fa;
+  color: #5a607f;
+  border: 1px solid #e8ecf1;
+}
+
+/* ===== 圆环进度条 ===== */
+.ring-progress {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+}
+
+.ring-progress svg {
+  transform: rotate(-90deg);
+  width: 56px;
+  height: 56px;
+}
+
+.ring-progress .ring-bg {
+  fill: none;
+  stroke: #f0f0f0;
+  stroke-width: 5;
+}
+
+.ring-progress .ring-fill {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.ring-progress .ring-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'BaiduNumberPlus', 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* ===== 评分详情网格 ===== */
+.score-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 20px;
+}
+
+.score-detail-item {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.score-detail-item .label {
+  font-size: 12px;
+  color: #8b95a8;
+  margin-bottom: 4px;
+}
+
+.score-detail-item .value {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* ===== 信号类型图标 ===== */
+.signal-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .score-detail-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .score-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}

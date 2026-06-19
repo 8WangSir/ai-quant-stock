@@ -1,0 +1,24 @@
+2026-06-06 23:08:27.536 [main] INFO  com.quant.notify.NotifyApplication - Starting NotifyApplication using Java 21.0.10 with PID 10480 (C:\Users\wangw\ai-quant-stock\services\notify-service\target\notify-service-1.0.0-SNAPSHOT.jar started by wangw in C:\Users\wangw\ai-quant-stock)
+2026-06-06 23:08:27.539 [main] INFO  com.quant.notify.NotifyApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-06 23:08:28.938 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-06 23:08:28.954 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-06 23:08:29.123 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 61 ms. Found 0 Redis repository interfaces.
+2026-06-06 23:08:34.246 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8084 (http)
+2026-06-06 23:08:34.265 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 23:08:34.265 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-06-06 23:08:34.416 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 23:08:34.417 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6755 ms
+2026-06-06 23:08:36.164 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8084 (http) with context path ''
+2026-06-06 23:08:36.249 [main] INFO  com.quant.notify.NotifyApplication - Started NotifyApplication in 9.444 seconds (process running for 10.721)
+2026-06-06 23:10:21.922 [main] INFO  com.quant.notify.NotifyApplication - Starting NotifyApplication using Java 21.0.10 with PID 40584 (C:\Users\wangw\ai-quant-stock\services\notify-service\target\notify-service-1.0.0-SNAPSHOT.jar started by wangw in C:\Users\wangw\ai-quant-stock)
+2026-06-06 23:10:21.927 [main] INFO  com.quant.notify.NotifyApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-06 23:10:23.011 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-06 23:10:23.015 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-06 23:10:23.055 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 17 ms. Found 0 Redis repository interfaces.
+2026-06-06 23:10:24.195 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8084 (http)
+2026-06-06 23:10:24.210 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-06 23:10:24.212 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-06-06 23:10:24.336 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-06 23:10:24.336 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2275 ms
+2026-06-06 23:10:26.198 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8084 (http) with context path ''
+2026-06-06 23:10:26.306 [main] INFO  com.quant.notify.NotifyApplication - Started NotifyApplication in 5.09 seconds (process running for 6.33)

@@ -1,0 +1,35 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: factor-engine-service
+  datasource:
+    url: jdbc:postgresql://localhost:15432/quant_stock?sslmode=disable
+    username: quant
+    password: quant123
+    driver-class-name: org.postgresql.Driver
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+quant:
+  python:
+    home: ../../python
+    executable: python
+
+xxl:
+  job:
+    admin:
+      addresses: http://localhost:8088/xxl-job-admin
+    executor:
+      appname: factor-engine-service
+      port: 9992
+    accessToken: default_token
+
+logging:
+  file:
+    name: c:/Users/wangw/ai-quant-stock/services/factor-engine-service/logs/factor-engine-service.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

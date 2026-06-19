@@ -1,0 +1,33 @@
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+*.iml
+.vscode
+
+# Build artifacts (will be built before docker)
+**/target/*.jar.original
+**/target/classes
+**/target/generated-sources
+**/target/maven-archiver
+**/target/maven-status
+
+# Node
+admin-web/node_modules
+admin-web/dist
+
+# Logs
+**/logs/*.log
+*.log
+
+# Temp
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.yml
+.dockerignore

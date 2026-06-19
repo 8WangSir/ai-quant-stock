@@ -1,0 +1,58 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: market-data-service
+  datasource:
+    url: jdbc:postgresql://postgres:5432/quant_stock?sslmode=disable
+    username: quant
+    password: quant123
+    driver-class-name: org.postgresql.Driver
+  data:
+    redis:
+      host: redis
+      port: 6379
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+
+quant:
+  data-source:
+    primary: momaapi
+    fallback: tickflow
+  tickflow:
+    base-url: ${TICKFLOW_BASE_URL:https://api.tickflow.org}
+    api-key: ${TICKFLOW_API_KEY:}
+    universe-id: ${TICKFLOW_UNIVERSE_ID:CN_Equity_A}
+  juhe:
+    api-key: ${JUHE_API_KEY:}
+  momaapi:
+    token: ${MOMAAPI_TOKEN:}
+  infoway:
+    api-key: ${INFOWAY_API_KEY:}
+  sync:
+    history-years: 5
+  python:
+    home: /app/python
+    executable: python3
+
+xxl:
+  job:
+    admin:
+      addresses: http://xxl-job-admin:8080/xxl-job-admin
+    executor:
+      appname: market-data-service
+      port: 9991
+      ip: market-data-service
+    accessToken: default_token
+
+logging:
+  file:
+    name: /app/logs/market-data-service.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

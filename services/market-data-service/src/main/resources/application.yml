@@ -1,0 +1,52 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: market-data-service
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+  datasource:
+    url: jdbc:postgresql://localhost:15432/quant_stock?sslmode=disable
+    username: quant
+    password: quant123
+    driver-class-name: org.postgresql.Driver
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+
+quant:
+  data-source:
+    primary: tickflow
+    fallback: akshare
+  tickflow:
+    base-url: ${TICKFLOW_BASE_URL:https://api.tickflow.org}
+    api-key: ${TICKFLOW_API_KEY:}
+    universe-id: ${TICKFLOW_UNIVERSE_ID:CN_Equity_A}
+  infoway:
+    api-key: a7d26b949f044ca9973df9810e74d420-infoway
+  sync:
+    history-years: 1
+
+xxl:
+  job:
+    admin:
+      addresses: http://localhost:8088/xxl-job-admin
+    executor:
+      appname: market-data-service
+      port: 9991
+    accessToken: default_token
+
+logging:
+  file:
+    name: c:/Users/wangw/ai-quant-stock/services/market-data-service/logs/market-data-service.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

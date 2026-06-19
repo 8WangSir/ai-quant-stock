@@ -1,0 +1,21 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-06-07T01:01:15.615+08:00  INFO 5712 --- [notify-service] [           main] com.quant.notify.NotifyApplication       : Starting NotifyApplication using Java 21.0.10 with PID 5712 (C:\Users\wangw\ai-quant-stock\services\notify-service\target\notify-service-1.0.0-SNAPSHOT.jar started by wangw in C:\Users\wangw\ai-quant-stock)
+2026-06-07T01:01:15.639+08:00  INFO 5712 --- [notify-service] [           main] com.quant.notify.NotifyApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-06-07T01:01:17.071+08:00  INFO 5712 --- [notify-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-07T01:01:17.077+08:00  INFO 5712 --- [notify-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-07T01:01:17.133+08:00  INFO 5712 --- [notify-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 0 Redis repository interfaces.
+2026-06-07T01:01:18.620+08:00  INFO 5712 --- [notify-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8084 (http)
+2026-06-07T01:01:18.640+08:00  INFO 5712 --- [notify-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-07T01:01:18.641+08:00  INFO 5712 --- [notify-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-06-07T01:01:18.846+08:00  INFO 5712 --- [notify-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-07T01:01:18.847+08:00  INFO 5712 --- [notify-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3008 ms
+2026-06-07T01:01:20.940+08:00  INFO 5712 --- [notify-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8084 (http) with context path ''
+2026-06-07T01:01:21.039+08:00  INFO 5712 --- [notify-service] [           main] com.quant.notify.NotifyApplication       : Started NotifyApplication in 6.175 seconds (process running for 7.539)
