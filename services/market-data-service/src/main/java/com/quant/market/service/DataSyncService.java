@@ -129,45 +129,113 @@ public class DataSyncService {
 
     /**
      * 同步行业每日行情数据
+     * 通过股票数据聚合计算行业行情，无需外部数据源
      */
     public void syncIndustryDaily(LocalDate startDate, LocalDate endDate) {
-        if (baostockClient == null) {
-            log.warn("BaoStock 客户端未初始化，跳过行业行情同步");
-            return;
-        }
-        
         log.info("【行业行情同步】开始: {} ~ {}", startDate, endDate);
         
-        List<Map<String, Object>> data = baostockClient.fetchIndustryDaily(startDate.toString(), endDate.toString());
-        if (data == null || data.isEmpty()) {
-            log.warn("未获取到行业行情数据");
+        List<String> industries = jdbcTemplate.queryForList(
+                "SELECT DISTINCT industry FROM stock_info WHERE industry IS NOT NULL AND industry != ''",
+                String.class);
+        
+        if (industries.isEmpty()) {
+            log.warn("未找到行业数据，请先同步股票列表");
             return;
         }
         
-        List<IndustryDaily> industryDailies = data.stream()
-                .map(this::mapToIndustryDaily)
-                .filter(d -> d != null)
-                .collect(Collectors.toList());
+        log.info("【行业行情同步】共 {} 个行业", industries.size());
         
-        if (!industryDailies.isEmpty()) {
-            // 批量插入或更新
-            for (IndustryDaily daily : industryDailies) {
+        int totalCount = 0;
+        LocalDate currentDate = startDate;
+        
+        while (!currentDate.isAfter(endDate)) {
+            if (currentDate.getDayOfWeek().getValue() > 5) {
+                currentDate = currentDate.plusDays(1);
+                continue;
+            }
+            
+            log.info("【行业行情同步】同步日期: {}", currentDate);
+            
+            for (String industry : industries) {
                 try {
+                    List<Map<String, Object>> stockData = jdbcTemplate.queryForList(
+                            "SELECT close, amount FROM stock_daily d " +
+                            "JOIN stock_info i ON d.code = i.code " +
+                            "WHERE i.industry = ? AND d.trade_date = ?",
+                            industry, currentDate);
+                    
+                    if (stockData.isEmpty()) {
+                        continue;
+                    }
+                    
+                    BigDecimal totalClose = BigDecimal.ZERO;
+                    BigDecimal totalAmount = BigDecimal.ZERO;
+                    int count = 0;
+                    
+                    for (Map<String, Object> row : stockData) {
+                        BigDecimal close = toDecimal(row.get("close"));
+                        BigDecimal amount = toDecimal(row.get("amount"));
+                        if (close != null && close.compareTo(BigDecimal.ZERO) > 0) {
+                            totalClose = totalClose.add(close);
+                            count++;
+                        }
+                        if (amount != null) {
+                            totalAmount = totalAmount.add(amount);
+                        }
+                    }
+                    
+                    if (count == 0) {
+                        continue;
+                    }
+                    
+                    BigDecimal avgClose = totalClose.divide(BigDecimal.valueOf(count), 4, java.math.RoundingMode.HALF_UP);
+                    
+                    List<Map<String, Object>> prevData = jdbcTemplate.queryForList(
+                            "SELECT close, amount FROM stock_daily d " +
+                            "JOIN stock_info i ON d.code = i.code " +
+                            "WHERE i.industry = ? AND d.trade_date = ?",
+                            industry, currentDate.minusDays(1));
+                    
+                    BigDecimal prevAvgClose = BigDecimal.ZERO;
+                    if (!prevData.isEmpty()) {
+                        BigDecimal prevTotal = BigDecimal.ZERO;
+                        int prevCount = 0;
+                        for (Map<String, Object> row : prevData) {
+                            BigDecimal close = toDecimal(row.get("close"));
+                            if (close != null && close.compareTo(BigDecimal.ZERO) > 0) {
+                                prevTotal = prevTotal.add(close);
+                                prevCount++;
+                            }
+                        }
+                        if (prevCount > 0) {
+                            prevAvgClose = prevTotal.divide(BigDecimal.valueOf(prevCount), 4, java.math.RoundingMode.HALF_UP);
+                        }
+                    }
+                    
+                    BigDecimal changePercent = BigDecimal.ZERO;
+                    if (prevAvgClose.compareTo(BigDecimal.ZERO) > 0) {
+                        changePercent = avgClose.subtract(prevAvgClose)
+                                .divide(prevAvgClose, 4, java.math.RoundingMode.HALF_UP);
+                    }
+                    
                     jdbcTemplate.update(
                             "INSERT INTO industry_daily (industry_name, trade_date, close, change_percent, amount, capital_flow, create_time, update_time) " +
                             "VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) " +
                             "ON CONFLICT (industry_name, trade_date) DO UPDATE SET " +
                             "close = EXCLUDED.close, change_percent = EXCLUDED.change_percent, " +
-                            "amount = EXCLUDED.amount, update_time = CURRENT_TIMESTAMP",
-                            daily.getIndustryName(), daily.getTradeDate(), daily.getClose(),
-                            daily.getChangePercent(), daily.getAmount(), daily.getCapitalFlow());
+                            "amount = EXCLUDED.amount, capital_flow = EXCLUDED.capital_flow, update_time = CURRENT_TIMESTAMP",
+                            industry, currentDate, avgClose, changePercent, totalAmount, BigDecimal.ZERO);
+                    
+                    totalCount++;
                 } catch (Exception e) {
-                    log.error("插入行业行情数据失败: {} - {}", daily.getIndustryName(), daily.getTradeDate(), e);
+                    log.warn("计算行业数据失败: {}", industry, e);
                 }
             }
+            
+            currentDate = currentDate.plusDays(1);
         }
         
-        log.info("【行业行情同步】完成: 共 {} 条记录", industryDailies.size());
+        log.info("【行业行情同步】完成: 共 {} 条记录", totalCount);
     }
 
     // ==================== 日线数据 ====================
@@ -556,7 +624,13 @@ public class DataSyncService {
     private BigDecimal toDecimal(Object value) {
         if (value == null) return null;
         try {
-            return new BigDecimal(value.toString());
+            BigDecimal result = new BigDecimal(value.toString());
+            // numeric(8,4) 最大绝对值 9999.9999，超出返回 null
+            if (result.abs().compareTo(new BigDecimal("9999.9999")) > 0) {
+                log.warn("【精度过滤】字段值 {} 超出范围 (abs > 9999.9999)，设为 null", value);
+                return null;
+            }
+            return result;
         } catch (NumberFormatException e) {
             return null;
         }
@@ -564,23 +638,47 @@ public class DataSyncService {
 
     // ==================== AKShare 财务数据同步 ====================
 
+    private String getPythonScriptPath(String scriptName) {
+        String configuredPath = properties.getSync().getPythonPath();
+        String basePath;
+        
+        // 如果配置了环境变量或配置文件路径，直接使用
+        if (configuredPath != null && !configuredPath.isEmpty()) {
+            basePath = configuredPath;
+        } else {
+            // 自动检测：根据 user.dir 推断
+            String userDir = System.getProperty("user.dir").replace("\\", "/");
+            int servicesIdx = userDir.indexOf("/services/");
+            if (servicesIdx > 0) {
+                basePath = userDir.substring(0, servicesIdx) + "/python/data_sync";
+            } else {
+                // fallback: 假设在项目根目录
+                basePath = userDir + "/python/data_sync";
+            }
+        }
+        
+        return (basePath.replace("\\", "/") + "/" + scriptName).replace("//", "/");
+    }
+
     /**
      * 使用 AKShare 同步最近4个季度财务数据
      */
     public void syncFinanceAkshareRecent() {
         log.info("【AKShare财务同步】开始同步最近4个季度财务数据");
         try {
+            String scriptPath = getPythonScriptPath("akshare_finance.py");
             ProcessBuilder pb = new ProcessBuilder(
                     "python",
-                    "c:/Users/wangw/ai-quant-stock/python/data_sync/akshare_finance.py",
+                    scriptPath,
                     "finance_recent"
             );
+            pb.environment().put("PYTHONIOENCODING", "utf-8");
             pb.redirectErrorStream(true);
             Process process = pb.start();
 
             // 读取输出
             java.io.BufferedReader reader = new java.io.BufferedReader(
-                    new java.io.InputStreamReader(process.getInputStream(), "UTF-8"));
+                    new java.io.InputStreamReader(process.getInputStream(), java.nio.charset.StandardCharsets.UTF_8));
             StringBuilder output = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
@@ -630,18 +728,20 @@ public class DataSyncService {
     public void syncFinanceAkshare(String date) {
         log.info("【AKShare财务同步】开始同步 {} 财务数据", date);
         try {
+            String scriptPath = getPythonScriptPath("akshare_finance.py");
             ProcessBuilder pb = new ProcessBuilder(
                     "python",
-                    "c:/Users/wangw/ai-quant-stock/python/data_sync/akshare_finance.py",
+                    scriptPath,
                     "finance_batch",
                     date
             );
+            pb.environment().put("PYTHONIOENCODING", "utf-8");
             pb.redirectErrorStream(true);
             Process process = pb.start();
 
             // 读取输出
             java.io.BufferedReader reader = new java.io.BufferedReader(
-                    new java.io.InputStreamReader(process.getInputStream(), "UTF-8"));
+                    new java.io.InputStreamReader(process.getInputStream(), java.nio.charset.StandardCharsets.UTF_8));
             StringBuilder output = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {

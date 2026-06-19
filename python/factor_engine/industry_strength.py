@@ -26,7 +26,10 @@ def calculate_industry_strength(df: pd.DataFrame) -> pd.DataFrame:
 
 def rank_industries(df: pd.DataFrame, trade_date: str) -> pd.DataFrame:
     """按行业强度排序并赋分"""
-    day_df = df[df["trade_date"] == trade_date].copy()
+    # 将 trade_date 转换为字符串进行比较（处理 datetime.date 对象）
+    df = df.copy()
+    df['trade_date_str'] = df['trade_date'].astype(str)
+    day_df = df[df['trade_date_str'] == trade_date].copy()
     if day_df.empty:
         return day_df
 

@@ -37,6 +37,7 @@ quant:
     api-key: ${INFOWAY_API_KEY:}
   sync:
     history-years: 5
+    python-path: /app/python/data_sync
   python:
     home: /app/python
     executable: python3

@@ -40,9 +40,24 @@ public class FactorCalculationService {
         runPython("recommend", tradeDate);
     }
 
+    private String getPythonHome() {
+        String base = System.getProperty("user.dir");
+        // 如果在 services/xxx 子目录中，自动向上找到项目根目录
+        if (base.contains("/services/") || base.contains("\\services\\")) {
+            int idx = base.indexOf("/services/");
+            if (idx == -1) idx = base.indexOf("\\services\\");
+            if (idx > 0) {
+                base = base.substring(0, idx);
+            }
+        }
+        return base + "/python";
+    }
+
     private void runPython(String command, LocalDate tradeDate) {
         try {
-            Path script = Path.of(pythonHome, "factor_engine/batch_calculator.py").toAbsolutePath().normalize();
+            String resolvedHome = getPythonHome();
+            Path script = Path.of(resolvedHome, "factor_engine/batch_calculator.py").toAbsolutePath().normalize();
+            log.info("Python script path: {}", script);
             ProcessBuilder builder = new ProcessBuilder(
                     pythonExecutable, script.toString(), command, tradeDate.toString());
             builder.redirectErrorStream(true);

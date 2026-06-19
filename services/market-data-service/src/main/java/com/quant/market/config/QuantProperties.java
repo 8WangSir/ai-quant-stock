@@ -46,5 +46,6 @@ public class QuantProperties {
     @Data
     public static class SyncConfig {
         private int historyYears = 5;
+        private String pythonPath = "../python/data_sync";
     }
 }

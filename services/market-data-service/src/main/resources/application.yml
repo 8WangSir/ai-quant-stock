@@ -40,6 +40,7 @@ quant:
     api-key: a7d26b949f044ca9973df9810e74d420-infoway
   sync:
     history-years: 1
+    python-path: ${PYTHON_SCRIPT_PATH:}
 
 xxl:
   job:

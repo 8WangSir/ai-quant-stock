@@ -35,7 +35,7 @@ public class InternalController {
         }
     }
 
-    //2 第二部 同步行业数据
+    //2 第二部 同步行业数据 更新stock_info  indstry字段
     @PostMapping("/sync/industry")
     public String syncIndustry() {
         try {
@@ -63,20 +63,6 @@ public class InternalController {
         }
     }
 
-    //4 第三步 同步所有股票列表日K线 (暂定近一年) 首次使用系统执行一次
-    @PostMapping("/sync/finance-full")
-    public String syncFinanceFull() {
-        new Thread(() -> dataSyncService.syncFinanceDataFull()).start();
-        return "财务全量同步已启动";
-    }
-
-    //2，2 第二步 增量同步所有股票列表日K线 (暂定近一年) 每日执行一次
-    @PostMapping("/sync/daily-incr")
-    public String syncDailyIncr() {
-        new Thread(() -> dataSyncService.syncDailyDataIncr(LocalDate.now())).start();
-        return "日线增量同步已启动";
-    }
-
 
     // 3.1 使用 AKShare 批量同步财务数据（速度快）
     @PostMapping("/sync/finance-akshare")
@@ -96,6 +82,23 @@ public class InternalController {
             return "AKShare 财务数据同步异常: " + e.getMessage();
         }
     }
+
+    //4 第三步 同步所有股票列表日K线 (暂定近一年) 首次使用系统执行一次
+    @PostMapping("/sync/finance-full")
+    public String syncFinanceFull() {
+        new Thread(() -> dataSyncService.syncFinanceDataFull()).start();
+        return "财务全量同步已启动";
+    }
+
+    //2，2 第二步 增量同步所有股票列表日K线 (暂定近一年) 每日执行一次
+    @PostMapping("/sync/daily-incr")
+    public String syncDailyIncr() {
+        new Thread(() -> dataSyncService.syncDailyDataIncr(LocalDate.now())).start();
+        return "日线增量同步已启动";
+    }
+
+
+
 
 
 
