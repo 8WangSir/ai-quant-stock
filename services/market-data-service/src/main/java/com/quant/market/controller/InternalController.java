@@ -3,6 +3,7 @@ package com.quant.market.controller;
 import com.quant.market.service.DataSyncService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 public class InternalController {
 
     private final DataSyncService dataSyncService;
+    private final JdbcTemplate jdbcTemplate;
 
 
     //1 第一步 获取全量股票列表 系统执行一次即可
@@ -33,7 +35,7 @@ public class InternalController {
         }
     }
 
-    //1.2 同步行业数据
+    //2 第二部 同步行业数据
     @PostMapping("/sync/industry")
     public String syncIndustry() {
         try {
@@ -45,7 +47,7 @@ public class InternalController {
         }
     }
 
-    //1.3 同步行业每日行情数据
+    //3  第二部 同步行业每日行情数据
     @PostMapping("/sync/industry-daily")
     public String syncIndustryDaily(
             @RequestParam(required = false) String startDate,
@@ -61,7 +63,7 @@ public class InternalController {
         }
     }
 
-    //2，1 第二步 同步所有股票列表日K线 (暂定近一年) 首次使用系统执行一次
+    //4 第三步 同步所有股票列表日K线 (暂定近一年) 首次使用系统执行一次
     @PostMapping("/sync/finance-full")
     public String syncFinanceFull() {
         new Thread(() -> dataSyncService.syncFinanceDataFull()).start();
@@ -75,25 +77,6 @@ public class InternalController {
         return "日线增量同步已启动";
     }
 
-    //3 第三步 全量同步所有股票财务数据
-
-    @PostMapping("/sync/syncFinanceDataFull")
-    public String syncFinanceDataFull() {
-        new Thread(() -> {
-            try {
-                LocalDate today = LocalDate.now();
-                log.info("【全量同步（断点续传）】开始: {}","同步财务数据" );
-
-                // 财务全量
-                dataSyncService.syncFinanceDataFull();
-
-                log.info("【全量同步（断点续传）】完成");
-            } catch (Exception e) {
-                log.error("【全量同步（断点续传）】异常", e);
-            }
-        }).start();
-        return "全量同步（断点续传）已启动";
-    }
 
     // 3.1 使用 AKShare 批量同步财务数据（速度快）
     @PostMapping("/sync/finance-akshare")
@@ -116,35 +99,7 @@ public class InternalController {
 
 
 
-    // 触发全量同步任务（对应 @XxlJob("initFullSyncJob")）
-    @PostMapping("/sync/full")
-    public String syncFull() {
-        new Thread(() -> {
-            try {
-                LocalDate today = LocalDate.now();
-                log.info("【全量同步】开始: {}", today);
 
-                // 1. 股票列表
-                try {
-                    dataSyncService.syncStockList();
-                } catch (Exception e) {
-                    log.warn("股票列表同步失败（使用已有数据）: {}", e.getMessage());
-                }
-
-                // 2. 日线全量：近一年
-                LocalDate start = today.minusYears(1);
-                dataSyncService.syncDailyDataFull(start, today);
-
-                // 3. 财务全量
-                dataSyncService.syncFinanceDataFull();
-
-                log.info("【全量同步】完成");
-            } catch (Exception e) {
-                log.error("【全量同步】异常", e);
-            }
-        }).start();
-        return "全量同步已启动";
-    }
 
     // 触发全量同步任务（支持断点续传）
     @PostMapping("/sync/full-resume")
@@ -169,28 +124,48 @@ public class InternalController {
         return "全量同步（断点续传）已启动";
     }
 
-    // 同步日K和财务数据
+    // 同步日K增量数据（从指定日期开始同步到最新交易日）
     @PostMapping("/sync/dk")
-    public String syncFullResumeK(@org.springframework.web.bind.annotation.RequestParam(defaultValue = "0") int startIndex) {
+    public String syncDailyIncr(@org.springframework.web.bind.annotation.RequestParam(required = false) String startDate) {
         new Thread(() -> {
             try {
+                // 如果没有指定开始日期，从数据库中最后一个完整数据的日期开始
+                LocalDate syncStart;
+                if (startDate != null && !startDate.isEmpty()) {
+                    syncStart = LocalDate.parse(startDate);
+                } else {
+                    // 查找最后一个数据量正常的日期（> 4000条）
+                    String sql = "SELECT trade_date FROM stock_daily WHERE trade_date >= '2026-06-01' GROUP BY trade_date HAVING COUNT(*) > 4000 ORDER BY trade_date DESC LIMIT 1";
+                    LocalDate lastCompleteDate = jdbcTemplate.queryForObject(sql, LocalDate.class);
+                    if (lastCompleteDate == null) {
+                        lastCompleteDate = LocalDate.of(2026, 6, 5);
+                    }
+                    syncStart = lastCompleteDate.plusDays(1);
+                }
+                
                 LocalDate today = LocalDate.now();
-                today = today.minusDays(1);
-                log.info("【全量同步（断点续传）】开始: {}, 从第{}只股票开始", today, startIndex + 1);
+                
+                log.info("【日线增量同步】开始: 从{}到{}", syncStart, today);
 
-                // 日线全量（断点续传）：近一年
-                LocalDate start = today.minusYears(1);
-                dataSyncService.syncDailyDataFull(start, today, startIndex);
+                // 循环同步每一天的数据
+                LocalDate currentDate = syncStart;
+                int syncedDays = 0;
+                while (!currentDate.isAfter(today)) {
+                    // 跳过周末
+                    if (currentDate.getDayOfWeek().getValue() <= 5) {
+                        log.info("【日线增量同步】同步日期: {} ({})", currentDate, currentDate.getDayOfWeek().name());
+                        dataSyncService.syncDailyDataIncr(currentDate);
+                        syncedDays++;
+                    }
+                    currentDate = currentDate.plusDays(1);
+                }
 
-                // 财务全量
-                dataSyncService.syncFinanceDataFull();
-
-                log.info("【全量同步（断点续传）】完成");
+                log.info("【日线增量同步】完成，共同步 {} 个交易日", syncedDays);
             } catch (Exception e) {
-                log.error("【全量同步（断点续传）】异常", e);
+                log.error("【日线增量同步】异常", e);
             }
         }).start();
-        return "全量同步（断点续传）已启动";
+        return "日线增量同步已启动";
     }
 
     @PostMapping("/sync/syncFullResumeF")

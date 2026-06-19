@@ -46,7 +46,8 @@ public class AdminQueryService {
 
     public List<RecommendStockDTO> getRecommendList(LocalDate tradeDate) {
         if (tradeDate == null) {
-            tradeDate = LocalDate.now();
+//            tradeDate = LocalDate.now();
+            tradeDate = LocalDate.parse("2026-06-18");
         }
 
         String cached = redisTemplate.opsForValue().get(RedisKeys.RECOMMEND_TODAY);

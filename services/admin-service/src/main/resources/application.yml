@@ -14,6 +14,10 @@ spring:
       host: localhost
       port: 6379
 
+  devtools:
+    restart:
+      enabled: true
+
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true

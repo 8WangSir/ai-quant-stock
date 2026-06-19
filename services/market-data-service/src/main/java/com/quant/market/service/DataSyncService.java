@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -54,6 +55,11 @@ public class DataSyncService {
 
     private final BaostockClient baostockClient;
 
+    public LocalDate getLatestDailyDate() {
+        String sql = "SELECT MAX(trade_date) FROM stock_daily";
+        return jdbcTemplate.queryForObject(sql, LocalDate.class);
+    }
+
     // ==================== 股票列表 ====================
 
     @Transactional
@@ -81,6 +87,7 @@ public class DataSyncService {
                 stockInfoMapper.insert(stock);
             } else {
                 stock.setId(existing.getId());
+                stock.setUpdateTime(LocalDateTime.now());
                 stockInfoMapper.updateById(stock);
             }
         }

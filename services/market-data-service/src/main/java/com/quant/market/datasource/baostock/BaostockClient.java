@@ -176,6 +176,8 @@ public class BaostockClient {
         try {
             log.info("BaoStock 执行命令: {}", command);
             ProcessBuilder pb = new ProcessBuilder(command);
+            Map<String, String> env = pb.environment();
+            env.put("PYTHONIOENCODING", "utf-8");
             pb.redirectErrorStream(true);
             Process process = pb.start();
 

@@ -4,6 +4,9 @@ import baostock as bs
 import time
 import random
 
+import os
+os.environ['PYTHONIOENCODING'] = 'utf-8'
+
 def ensure_login():
     """确保登录成功"""
     lg = bs.login()
@@ -23,7 +26,7 @@ def to_baostock_code(code):
 def load_codes_json(codes_json_or_file):
     """解析股票代码 JSON（支持从文件读取）"""
     if codes_json_or_file.startswith('@'):
-        with open(codes_json_or_file[1:], 'r', encoding='utf-8') as f:
+        with open(codes_json_or_file[1:], 'r', encoding='utf-8-sig') as f:
             return json.load(f)
     else:
         return json.loads(codes_json_or_file)
@@ -91,9 +94,15 @@ def fetch_industry_data():
         else:
             pure = code
         
+        industry = row[3] if row[3] else None
+        try:
+            industry = industry.encode('latin1').decode('gbk')
+        except:
+            pass
+        
         industries.append({
             'code': pure,
-            'industry': row[3] if row[3] else None
+            'industry': industry
         })
     
     print(f"获取到 {len(industries)} 只股票的行业数据", file=sys.stderr)
